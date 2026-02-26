@@ -23,11 +23,20 @@ You need `npx` installed. Download Node.js (includes npx) from:
 
 ### Install Skills
 
+#### Quick Install
 ```bash
 npx skills add ascend-ai-coding/awesome-ascend-skills
 ```
 
 This command will install all skills from this repository to your AI coding tool (Claude Code, OpenCode, Codex, Cursor, etc.)
+
+#### Install Manual
+
+```bash
+git clone https://github.com/ascend-ai-coding/awesome-ascend-skills.git
+cd awesome-ascend-skills
+npx skills add .
+```
 
 ## Structure
 
