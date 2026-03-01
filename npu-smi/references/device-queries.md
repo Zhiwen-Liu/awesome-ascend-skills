@@ -4,11 +4,54 @@ Detailed reference for npu-smi device query commands.
 
 ## Table of Contents
 
-1. [Basic Queries](#basic-queries)
-2. [Real-time Metrics](#real-time-metrics)
-3. [Advanced Queries](#advanced-queries)
-4. [Output Formats](#output-formats)
-5. [Monitoring Scripts](#monitoring-scripts)
+1. [Platform Identification](#platform-identification)
+2. [Basic Queries](#basic-queries)
+3. [Real-time Metrics](#real-time-metrics)
+4. [Advanced Queries](#advanced-queries)
+5. [Output Formats](#output-formats)
+6. [Monitoring Scripts](#monitoring-scripts)
+
+---
+
+## Platform Identification
+
+> **Important**: Chip name alone does **NOT** determine the server platform (A2 vs A3).
+
+### Common Misconception
+
+When `npu-smi info -m` shows **Chip Name: Ascend 910B3**, this does **NOT** mean the machine is an **Atlas A3**. The same chip (910B3) can be used in both **A2** and **A3** servers.
+
+**Example**: An Atlas A2 server with 8× 910B3 chips will still show "910B3" as the chip name.
+
+### Correct Method: Check System Product Info
+
+To identify whether you have an **Atlas A2** or **Atlas A3** server, use system-level commands:
+
+```bash
+# Method 1: Using dmidecode (recommended)
+dmidecode -t system 2>/dev/null | head -20 | grep Product
+
+# Method 2: Check product information via npu-smi
+npu-smi info -t product -i 0 -c 0
+
+# Method 3: Using ipmitool (if available)
+ipmitool fru 2>/dev/null | grep "Product Name" | head -1
+```
+
+### Platform Mapping Reference
+
+| Chip Name | Possible Server Platforms | Notes |
+|-----------|---------------------------|-------|
+| Ascend 910A2 | Atlas A2 | A2-specific chip |
+| Ascend 910B1 | Atlas A2, Atlas A3 | Cross-platform |
+| Ascend 910B2 | Atlas A2, Atlas A3 | Cross-platform |
+| Ascend 910B3 | Atlas A2, Atlas A3 | Cross-platform |
+
+### Key Takeaway
+
+- **Chip name** indicates the NPU processor model
+- **Server platform** (A2/A3) is determined by the system product information
+- Always verify via `dmidecode` or `npu-smi info -t product` rather than assuming from chip name
 
 ---
 

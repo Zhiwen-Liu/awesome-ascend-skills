@@ -61,7 +61,7 @@ npu-smi info -t p2p -i <id> -c <chip>     # P2P status and mode
 npu-smi info -t product -i <id> -c <chip> # Product name and serial
 ```
 
-> **See**: [references/device-queries.md](references/device-queries.md) for output formats, examples, and monitoring scripts.
+> **See**: [references/device-queries.md](references/device-queries.md) for output formats, examples, monitoring scripts, and **platform identification** (A2 vs A3).
 
 ## Configuration
 
@@ -191,6 +191,8 @@ npu-smi clear -t tls-cert-period -i <id> -c <chip>        # Restore default (90 
 - Atlas 200I A2 Acceleration Module (RC/EP scenarios)
 - Atlas A2/A3 Training Series
 - Atlas Training Series
+
+> **Note**: Chip name (e.g., 910B3) does **not** indicate server platform (A2 vs A3). Use `dmidecode -t system | grep Product` or `npu-smi info -t product` to identify the server model. See [references/device-queries.md](references/device-queries.md#platform-identification) for details.
 
 ## Important Notes
 
