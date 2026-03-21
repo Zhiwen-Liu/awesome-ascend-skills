@@ -61,6 +61,30 @@
       "description": "华为昇腾 Ascend Extension for PyTorch (torch_npu) 的环境检查、部署与能力指引。在用户使用 @torch_npu、昇腾 NPU、CANN、或需要将 PyTorch 迁移到 NPU 时自动应用；当用户使用 @torch_npu_doc 时，基于 skill 的 reference 文档提供项目内中文文档能力说明。",
       "source": "./torch_npu",
       "category": "development"
+    },
+    {
+      "name": "profiling-main",
+      "description": "Profiling 性能分析主技能，用于对 step_trace_time.csv 文件进行性能分析，识别下发、通信、计算瓶颈，并触发相应的子技能进行深入分析。",
+      "source": "./profiling-analysis/profiling-main",
+      "category": "analysis"
+    },
+    {
+      "name": "profiling-hostbound",
+      "description": "Profiling 下发瓶颈分析技能，当检测到空闲耗时占比超过20%时自动触发，用于分析下发过程中的延迟和调度问题。",
+      "source": "./profiling-analysis/profiling-hostbound",
+      "category": "analysis"
+    },
+    {
+      "name": "profiling-computing",
+      "description": "Profiling 计算瓶颈分析技能，当检测到计算耗时占比超过85%时自动触发，用于分析算子性能和计算资源利用情况。",
+      "source": "./profiling-analysis/profiling-computing",
+      "category": "analysis"
+    },
+    {
+      "name": "profiling-communication",
+      "description": "Profiling 通信瓶颈分析技能，当检测到通信耗时占比超过10%时自动触发，用于分析数据传输效率和通信与计算的重叠情况。",
+      "source": "./profiling-analysis/profiling-communication",
+      "category": "analysis"
     }
   ]
 }

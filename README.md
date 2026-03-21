@@ -88,6 +88,10 @@ cp -r awesome-ascend-skills/npu-smi your-project/.agents/skills/
 | [ais-bench](ais-bench/SKILL.md) | 测试 | AI 模型评估工具：精度评估（MMLU/GSM8K/MMMU 等 15+ 基准）、性能压测、Function Call |
 | [ascendc](ascendc/SKILL.md) | 开发 | AscendC 算子开发：FFN/GMM/MoE 等 Transformer 算子实现、CANN API 示例 |
 | [torch_npu](torch_npu/SKILL.md) | 开发 | PyTorch 昇腾扩展：环境检查、部署指引、PyTorch 迁移到 NPU 的完整指南 |
+| [profiling-main](profiling-analysis/profiling-main/SKILL.md) | 分析 | Profiling 性能分析主技能：识别下发、通信、计算瓶颈，触发子技能深入分析 |
+| [profiling-hostbound](profiling-analysis/profiling-hostbound/SKILL.md) | 分析 | Profiling 下发瓶颈分析：空闲耗时占比超20%时触发，分析下发延迟和调度问题 |
+| [profiling-computing](profiling-analysis/profiling-computing/SKILL.md) | 分析 | Profiling 计算瓶颈分析：计算耗时占比超85%时触发，分析算子性能和资源利用 |
+| [profiling-communication](profiling-analysis/profiling-communication/SKILL.md) | 分析 | Profiling 通信瓶颈分析：通信耗时占比超10%时触发，分析数据传输效率 |
 
 ---
 
