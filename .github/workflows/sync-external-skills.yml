@@ -1,0 +1,65 @@
+name: Sync External Skills
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at UTC 00:00
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run mode (no PR creation)'
+        required: false
+        default: 'false'
+  pull_request:
+    paths:
+      - '.github/external-sources.yml'
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: sync-external-skills
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: pip install pyyaml
+      
+      - name: Run sync script
+        run: python3 scripts/sync_external_skills.py
+      
+      - name: Validate skills
+        run: python3 scripts/validate_skills.py
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Pull Request
+        if: steps.check_changes.outputs.has_changes == 'true' && github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "sync(external): update external skills"
+          git push origin HEAD:feat/sync-external-auto
+          gh pr create --title "sync(external): update external skills" --body "Auto-synced from external sources" --label "external-sync" --base main || echo "PR may already exist"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

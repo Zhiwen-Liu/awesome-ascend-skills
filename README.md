@@ -204,6 +204,43 @@ skill-name/                          # 目录名：小写 + 连字符
 
 ---
 
+## 外部 Skills 同步
+
+本仓库支持自动同步外部 Ascend skills 仓库，实现技能共享和更新。
+
+### 同步机制
+
+同步由 GitHub Actions 自动完成，支持三种触发方式：
+
+1. **定时同步**：每天 UTC 00:00 自动执行
+2. **手动触发**：通过 GitHub Actions 页面手动运行
+3. **PR 触发**：修改 `.github/external-sources.yml` 配置文件时自动触发
+
+### 添加外部源
+
+编辑 `.github/external-sources.yml` 文件添加新的外部仓库：
+
+```yaml
+sources:
+  - name: mindstudio                    # 唯一标识，用于 external/{name}/ 目录
+    url: https://github.com/kali20gakki/mindstudio-skills
+    branch: main                        # 可选，默认 main
+    enabled: true                       # 可选，默认 true
+```
+
+### 同步规则
+
+- **存储位置**：`external/{source-name}/{skill-name}/`
+- **冲突策略**：同名 skill 以本仓为准，外部 skill 被跳过
+- **来源标记**：同步的 skill 会自动添加 `synced-from`、`synced-date`、`synced-commit` 等属性
+- **PR 审核**：同步结果生成 PR，需人工审核后合并
+
+### 查看外部 Skills
+
+已同步的外部 skills 会显示在本 README 的"外部 Skills"表格中。
+
+---
+
 ## 提交 PR
 
 ### 准备工作
