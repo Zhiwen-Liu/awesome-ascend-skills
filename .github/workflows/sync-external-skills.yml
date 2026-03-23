@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AWESOME_GITHUB_TOKEN }}
       
       - uses: actions/setup-python@v5
         with:
@@ -77,4 +77,4 @@ jobs:
           gh pr edit --title "sync(external): update external skills" \
             --body "Auto-synced from external sources. See validation report in workflow logs."
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AWESOME_GITHUB_TOKEN }}
