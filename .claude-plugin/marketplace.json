@@ -21,6 +21,12 @@
       "category": "testing"
     },
     {
+      "name": "torch-npu-comm-test",
+      "description": "通过 PyTorch torch.distributed 接口测试昇腾 NPU 通信算子性能。支持指定任意 tensor shape、dtype，使用 torchrun 启动，贴近真实训练场景的通信算子测试与性能分析。Test collective communication operators with specific tensor shapes via torch.distributed on Ascend NPU.",
+      "source": "./torch-npu-comm-test",
+      "category": "testing"
+    },
+    {
       "name": "atc-model-converter",
       "description": "Complete toolkit for Huawei Ascend NPU model conversion and inference. Convert ONNX models to .om format using ATC tool, run Python inference on OM models using ais_bench, compare precision between CPU ONNX and NPU OM outputs, and end-to-end YOLO inference with Ultralytics.",
       "source": "./atc-model-converter",
